@@ -1,0 +1,15 @@
+{
+    "version": "1.0.0",
+    "summary": "Runtime for elmrpcplus generated code.",
+    "repository": "https://github.com/shutej/elm-rpcplus-runtime.git",
+    "license": "BSD3",
+    "source-directories": [
+        "src"
+    ],
+    "exposed-modules": [
+        "Rpc"
+    ],
+    "dependencies": {
+        "elm-lang/core": "1.0.0 <= v < 2.0.0"
+    }
+}
