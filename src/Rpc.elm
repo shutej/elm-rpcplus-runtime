@@ -1,7 +1,6 @@
 module Rpc where
 
-{-| This is a runtime to support rpcplus generated clients. Typical client
-usage looks like this:
+{-| This is a runtime to support rpcplus generated clients. Usage:
 
     import MyProtocol (..)
     import Rpc
@@ -15,7 +14,7 @@ usage looks like this:
     -- Response Signal
     rpcResponse : Signal.Signal Response
     rpcResponse = Rpc.connect protocol
-        <| WebSocket.connect myUrl
+        <| WebSocket.connect "wss://myserver.com:443/rpcplus"
         <| Signal.subscribe rpcRequest
 
     -- Send a request
