@@ -9,13 +9,14 @@ module Rpc where
 
     -- Request Signal
     rpcRequest : Signal.Channel Request
-    rpcRequest = Signal.Channel NoRequest
+    rpcRequest = Signal.channel NoRequest
 
     -- Response Signal
     rpcResponse : Signal.Signal Response
-    rpcResponse = Rpc.connect protocol
-        <| WebSocket.connect "wss://myserver.com:443/rpcplus"
-        <| Signal.subscribe rpcRequest
+    rpcResponse =
+        Rpc.connect protocol
+            (WebSocket.connect "wss://myserver.com:443/rpcplus")
+            (Signal.subscribe rpcRequest)
 
     -- Send a request
     Signal.send rpcRequest NoRequest
