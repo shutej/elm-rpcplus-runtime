@@ -1,6 +1,7 @@
 module Rpc where
 
-{-| Typical client use looks like this:
+{-| This is a runtime to support rpcplus generated clients. Typical client
+usage looks like this:
 
     import MyProtocol (..)
     import Rpc
@@ -19,6 +20,10 @@ module Rpc where
 
     -- Send a request
     Signal.send rpcRequest NoRequest
+
+
+# Usage
+@docs connect, Transport
 -}
 
 import Array
@@ -30,9 +35,14 @@ import Result
 import Signal
 import Signal ((<~))
 
+{-| Transport is generally provided by WebSocket.connect.  In the future this
+same interface may support retry logic or other transports (for example,
+Http-based transports).
+-}
 type alias Transport = Signal.Signal String -> Signal.Signal String
-type alias Error a = Result.Result String a
+
 type alias Id = Int
+type alias Error a = Result.Result String a
 type alias JsonValue = Json.Encode.Value
 
 -- dictEncode
@@ -221,6 +231,11 @@ step driver action state =
       ServerOutput output ->
           stepServerOutput driver output state
 
+{-| connect overlays a Protocol, which is type-safe, over a Transport, which
+carries strings and is usually provided by WebSocket.connect.  The
+resulting connection will read from the request signal and write to the
+response signal.
+-}
 connect : Protocol request response -> Transport -> Signal.Signal request -> Signal.Signal response
 connect protocol transport request =
     let
