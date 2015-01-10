@@ -20,7 +20,6 @@ module Rpc where
     -- Send a request
     Signal.send rpcRequest NoRequest
 
-
 # Usage
 @docs connect, Transport
 -}
